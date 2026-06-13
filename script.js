@@ -2,64 +2,74 @@
 (function () {
   "use strict";
 
-  // Intro overlay
-  window.addEventListener("load", function () {
-    var intro = document.getElementById("intro");
-    if (intro) setTimeout(function () { intro.classList.add("gone"); }, 1300);
-  });
+  // Year
+  var yr = document.getElementById("yr");
+  if (yr) yr.textContent = new Date().getFullYear();
 
-  // Nav scroll state
-  var nav = document.querySelector(".nav");
-  function onScroll() {
-    if (!nav) return;
-    if (window.scrollY > 40) nav.classList.add("nav--scrolled");
-    else nav.classList.remove("nav--scrolled");
+  // Sticky nav state
+  var nav = document.getElementById("nav");
+  if (nav) {
+    var onScroll = function () {
+      if (window.scrollY > 40) nav.classList.add("scrolled");
+      else nav.classList.remove("scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Mobile nav toggle
-  var toggle = document.querySelector(".nav-toggle");
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      var links = document.querySelector(".nav-links");
-      if (!links) return;
-      var open = links.style.display === "flex";
-      links.style.display = open ? "" : "flex";
-      links.style.flexDirection = "column";
-      links.style.position = "fixed";
-      links.style.top = "62px";
-      links.style.right = "16px";
-      links.style.background = "#1d2026";
-      links.style.padding = "18px 22px";
-      links.style.borderRadius = "8px";
-      links.style.boxShadow = "0 20px 40px -20px rgba(0,0,0,.7)";
-    });
+  // Reveal on scroll
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    reveals.forEach(function (el) { io.observe(el); });
   }
 
   // Rolling hero
-  var slides = document.querySelectorAll(".hero-slide");
-  if (slides.length > 1) {
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduce) {
-      var i = 0;
-      setInterval(function () {
-        slides[i].classList.remove("active");
-        i = (i + 1) % slides.length;
-        slides[i].classList.add("active");
-      }, 6000);
+  var slidesWrap = document.getElementById("slides");
+  if (!slidesWrap) return;
+  var slides = Array.prototype.slice.call(slidesWrap.querySelectorAll(".hero-slide"));
+  if (slides.length < 2) return;
+
+  // Lazy-load non-first slides
+  slides.forEach(function (s) {
+    var src = s.getAttribute("data-src");
+    if (src) {
+      var img = new Image();
+      img.onload = function () { s.style.backgroundImage = "url('" + src + "')"; };
+      img.src = src;
     }
+  });
+
+  // Dots
+  var dotsWrap = document.getElementById("dots");
+  var dots = [];
+  slides.forEach(function (_, i) {
+    var b = document.createElement("button");
+    b.setAttribute("aria-label", "Show slide " + (i + 1));
+    if (i === 0) b.classList.add("active");
+    b.addEventListener("click", function () { go(i); });
+    dotsWrap.appendChild(b);
+    dots.push(b);
+  });
+
+  var idx = 0, timer = null;
+  function show(i) {
+    slides[idx].classList.remove("active");
+    dots[idx].classList.remove("active");
+    idx = (i + slides.length) % slides.length;
+    slides[idx].classList.add("active");
+    dots[idx].classList.add("active");
   }
+  function go(i) { show(i); restart(); }
+  function next() { show(idx + 1); }
+  function restart() { if (timer) clearInterval(timer); if (!reduce) timer = setInterval(next, 6000); }
 
-  // Scroll reveal
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-
-  // Year
-  var y = document.getElementById("yr");
-  if (y) y.textContent = new Date().getFullYear();
+  if (!reduce) restart();
 })();

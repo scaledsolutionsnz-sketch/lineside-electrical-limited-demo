@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b1220"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <defs>
+    <radialGradient id="g" cx="18%" cy="30%" r="90%">
+      <stop offset="0%" stop-color="#16243c"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(90,150)">
+    <rect x="0" y="0" width="68" height="68" rx="16" fill="#e0a13c"/>
+    <path d="M40 12 22 44h16l-3 22 24-32H40l4-22z" fill="#1a1206"/>
+  </g>
+  <text x="92" y="320" font-family="Space Grotesk, Arial, sans-serif" font-size="76" font-weight="700" fill="#ffffff">Lineside Electrical</text>
+  <text x="94" y="392" font-family="Schibsted Grotesk, Arial, sans-serif" font-size="34" fill="#e0a13c" letter-spacing="3">REGISTERED ELECTRICIANS · CHRISTCHURCH</text>
+  <text x="94" y="470" font-family="Schibsted Grotesk, Arial, sans-serif" font-size="30" fill="rgba(255,255,255,0.78)">Switchboards · Lighting · Power · Fault finding · Rewires</text>
+  <text x="94" y="528" font-family="Space Grotesk, Arial, sans-serif" font-size="32" font-weight="600" fill="#ffffff">021 415 646</text>
+</svg>

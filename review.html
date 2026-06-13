@@ -2,73 +2,40 @@
 <html lang="en-NZ">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Leave a Review | Lineside Electrical Limited</title>
-<meta name="description" content="Tell us how we did. Rate your experience with Lineside Electrical, Christchurch.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23ff8a00'/%3E%3Cpath d='M18 4 L8 18 h6 l-2 10 12-16 h-7 z' fill='%2315171b'/%3E%3C/svg%3E">
+<meta name="description" content="Share your experience with Lineside Electrical, Christchurch electricians.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
-  .rate-wrap{max-width:620px;margin:0 auto;padding:70px 24px 90px;text-align:center}
-  .rate-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:46px 34px;box-shadow:0 30px 60px -40px rgba(21,23,27,.5)}
-  .stars-pick{display:flex;justify-content:center;gap:10px;margin:30px 0 8px}
-  .stars-pick button{background:none;border:0;cursor:pointer;font-size:46px;line-height:1;color:#dcd6c8;transition:transform .15s,color .15s}
-  .stars-pick button:hover,.stars-pick button.lit{color:var(--accent);transform:scale(1.12)}
-  .rate-hint{color:var(--muted);font-size:15px;min-height:22px}
-  .rate-card h1{font-size:clamp(32px,6vw,48px);margin-bottom:10px}
-  .rate-card p.sub{color:var(--muted);margin-bottom:6px}
-  .back{display:inline-block;margin-top:26px;color:var(--muted);font-size:14px}
-  .back:hover{color:var(--accent)}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<nav class="nav nav--scrolled">
-  <a class="brand" href="index.html">
-    <span class="mark"><svg viewBox="0 0 32 32" fill="none"><path d="M18 4 L8 18 h6 l-2 10 12-16 h-7 z" fill="#15171b"/></svg></span>
-    <span><b>Lineside</b><span>Electrical Ltd</span></span>
-  </a>
-  <div class="nav-cta"><a class="nav-phone" href="tel:+6421415646">021 415 646</a><a class="btn btn--amber" href="index.html">Back to Site</a></div>
-</nav>
-
-<div class="subhead" style="padding-bottom:30px"><div class="wrap"><span class="eyebrow" style="justify-content:center">Lineside Electrical</span></div></div>
-
-<div class="rate-wrap">
-  <div class="rate-card">
+<section class="choice-wrap">
+  <div class="wrap">
+    <a class="brand" href="index.html" style="justify-content:center;margin-bottom:8px">
+      <span class="spark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-12H12l1-8z"/></svg></span>
+      <span>Lineside Electrical<small>Christchurch</small></span>
+    </a>
+    <div class="stars" style="color:var(--copper)">★★★★★</div>
     <h1>How did we do?</h1>
-    <p class="sub">Tap a star to rate your experience with Lineside Electrical.</p>
-    <div class="stars-pick" id="stars">
-      <button data-v="1" aria-label="1 star">★</button>
-      <button data-v="2" aria-label="2 stars">★</button>
-      <button data-v="3" aria-label="3 stars">★</button>
-      <button data-v="4" aria-label="4 stars">★</button>
-      <button data-v="5" aria-label="5 stars">★</button>
+    <p>Your feedback keeps Lineside sharp. If we did a good job, a public review helps other Christchurch locals find us. If something wasn't right, tell us directly so we can put it straight.</p>
+    <div class="choice-cards">
+      <div class="choice-card">
+        <h3>It was great 👍</h3>
+        <p>Brilliant — would you mind leaving a quick Google review? It genuinely makes a difference to a small local business.</p>
+        <a class="btn btn-primary" href="https://www.google.com/search?q=Lineside+Electrical+Christchurch" target="_blank" rel="noopener">Leave a Google review</a>
+      </div>
+      <div class="choice-card">
+        <h3>Could've been better 👎</h3>
+        <p>We'd rather hear it from you than read it later. Send us the details privately and Joe will sort it out.</p>
+        <a class="btn btn-ghost" href="private.html">Give private feedback</a>
+      </div>
     </div>
-    <p class="rate-hint" id="hint">Your feedback helps us keep doing good work.</p>
-    <a class="back" href="index.html">← Back to home</a>
+    <p style="margin-top:2.4rem;font-size:.92rem"><a href="index.html" style="color:var(--copper)">← Back to the website</a></p>
   </div>
-</div>
-
-<script>
-  // 4-5 stars -> Google review; 1-3 stars -> private feedback form
-  var GOOGLE_REVIEW_URL = "https://g.page/r/PLACEHOLDER/review";
-  var stars = document.querySelectorAll("#stars button");
-  var hint = document.getElementById("hint");
-  var hints = {1:"Sorry to hear that — tell us what went wrong.",2:"We'd like to put this right.",3:"Thanks — how could we have done better?",4:"Great! Taking you to Google…",5:"Awesome — taking you to Google…"};
-  stars.forEach(function(btn){
-    btn.addEventListener("mouseenter",function(){paint(+btn.dataset.v)});
-    btn.addEventListener("focus",function(){paint(+btn.dataset.v)});
-    btn.addEventListener("click",function(){
-      var v=+btn.dataset.v; hint.textContent=hints[v];
-      setTimeout(function(){
-        if(v>=4){ window.location.href=GOOGLE_REVIEW_URL; }
-        else{ window.location.href="private.html?rating="+v; }
-      },550);
-    });
-  });
-  document.getElementById("stars").addEventListener("mouseleave",function(){paint(0)});
-  function paint(n){stars.forEach(function(b){b.classList.toggle("lit",+b.dataset.v<=n)})}
-</script>
+</section>
+<script src="script.js"></script>
 </body>
 </html>
