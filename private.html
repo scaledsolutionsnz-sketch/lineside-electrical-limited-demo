@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Feedback | Lineside Electrical Limited</title>
+<meta name="description" content="Share your feedback with Lineside Electrical so we can put things right.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23ff8a00'/%3E%3Cpath d='M18 4 L8 18 h6 l-2 10 12-16 h-7 z' fill='%2315171b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fb-wrap{max-width:640px;margin:0 auto;padding:60px 24px 90px}
+  .fb-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:40px 34px;box-shadow:0 30px 60px -40px rgba(21,23,27,.5)}
+  .fb-card h1{font-size:clamp(30px,5.5vw,44px);margin-bottom:8px}
+  .fb-card p.sub{color:var(--muted);margin-bottom:24px}
+  .your-rating{color:var(--accent);font-size:24px;letter-spacing:4px;margin-bottom:24px}
+  .success{display:none;text-align:center;padding:24px 0}
+  .success.show{display:block}
+  .success .big{width:74px;height:74px;border-radius:50%;background:var(--ink);color:var(--accent);display:grid;place-items:center;margin:0 auto 20px}
+</style>
+</head>
+<body>
+<nav class="nav nav--scrolled">
+  <a class="brand" href="index.html">
+    <span class="mark"><svg viewBox="0 0 32 32" fill="none"><path d="M18 4 L8 18 h6 l-2 10 12-16 h-7 z" fill="#15171b"/></svg></span>
+    <span><b>Lineside</b><span>Electrical Ltd</span></span>
+  </a>
+  <div class="nav-cta"><a class="nav-phone" href="tel:+6421415646">021 415 646</a><a class="btn btn--amber" href="index.html">Back to Site</a></div>
+</nav>
+
+<div class="subhead" style="padding-bottom:26px"><div class="wrap"><span class="eyebrow" style="justify-content:center">We're listening</span><h1>Tell us more</h1></div></div>
+
+<div class="fb-wrap">
+  <div class="fb-card">
+    <div id="form-view">
+      <h1>Your feedback</h1>
+      <p class="sub">Thanks for being honest — it's the only way we improve. Let us know what happened and we'll make it right.</p>
+      <div class="your-rating" id="ratingStars">★</div>
+      <form action="https://formsubmit.co/joe@lineside-electrical.co.nz" method="POST" id="fbForm">
+        <input type="hidden" name="_subject" value="Private feedback — Lineside Electrical website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="rating" id="ratingField" value="">
+        <div class="row">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required placeholder="Your name"></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.co.nz"></div>
+        </div>
+        <div class="field"><label for="feedback">What could we have done better?</label><textarea id="feedback" name="feedback" required placeholder="Tell us what happened…"></textarea></div>
+        <button class="btn btn--amber" type="submit" style="width:100%">Send Feedback</button>
+      </form>
+    </div>
+    <div class="success" id="successView">
+      <div class="big"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 12 5 5L20 6"/></svg></div>
+      <h1>Thank you</h1>
+      <p class="sub">We've got your feedback and someone from Lineside Electrical will be in touch. We appreciate you taking the time.</p>
+      <a class="btn btn--dark" href="index.html">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var rating = parseInt(params.get("rating"),10);
+  if(!(rating>=1 && rating<=5)) rating = 3;
+  document.getElementById("ratingField").value = rating;
+  document.getElementById("ratingStars").textContent = "★★★★★".slice(0,rating) + "☆☆☆☆☆".slice(0,5-rating);
+
+  document.getElementById("fbForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var form = e.target;
+    fetch(form.action,{method:"POST",body:new FormData(form),headers:{'Accept':'application/json'}})
+      .then(function(){show()})
+      .catch(function(){show()});
+  });
+  function show(){
+    document.getElementById("form-view").style.display="none";
+    document.getElementById("successView").classList.add("show");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+</script>
+</body>
+</html>
